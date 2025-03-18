@@ -1,0 +1,161 @@
+@layer tailwind-base, primereact, tailwind-utilities;
+
+/* IMPORTANT: In "styled" mode you must add the PrimeReact Theme here. Do NOT include in "unstyled" mode */
+/* @import 'primereact/resources/themes/lara-light-purple/theme.css' layer(primereact); */
+
+@layer tailwind-base {
+  @import "tailwindcss/base";
+}
+
+@layer tailwind-utilities {
+  @import "tailwindcss/components";
+  @import "tailwindcss/utilities";
+}
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.img {
+  vertical-align: middle;
+}
+
+body {
+  background-color: rgb(222, 241, 254);
+}
+
+.menu {
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.banner {
+  width: 1193px;
+  height: 567px;
+  flex-shrink: 0;
+  fill: '#00ACEE'
+}
+
+.cards {
+  max-width: 80vw;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.cards-2inrow {
+  max-width: 1200px;
+  display: grid;
+  gap: 2rem;
+}
+
+.cards-3 {
+  padding-left: 32px;
+  max-width: 98vw;
+  display: grid;
+  justify-content: space-around;
+  gap: 2rem;
+}
+
+.sm-cards {
+  max-width: 80vw;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 800px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sm-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cards-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .sm-cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .cards-3 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sm-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .cards-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.bg-gray-50 {
+  background-color: rgb(247, 247, 247);
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: rgb(233, 194, 83);
+}
+
+.blue {
+  background-color: rgb(29, 173, 235);
+}
+
+.pge-button {
+  padding: 6px 16px;
+  border-radius: 25px;
+  background-color: #FBBB36;
+  font-weight: 600;
+}
+
+.pge-button:hover {
+  background-color: #FBAB18;
+}
+
+.help-button {
+  border-radius: 25px;
+  padding: 6px 16px;
+  background-color: #f97316
+}

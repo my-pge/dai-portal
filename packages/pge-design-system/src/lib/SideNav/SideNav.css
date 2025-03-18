@@ -1,0 +1,66 @@
+/* retracted menu with TIERED MENU */
+.sidenav-retracted.p-tieredmenu {
+    position: fixed;
+    top: 24px;
+    left: 0;
+    bottom: 0;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    transition: width 0.2s;
+}
+
+.sidenav-expanded.p-panelmenu {
+    position: fixed;
+    top: 24px;
+    left: 0;
+    bottom: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    transition: width 0.2s;
+}
+
+/* submenus general style */
+.sidenav-retracted.p-tieredmenu ul.p-submenu-list .p-menuitem {
+    font-size: 14px;
+    color: #495057;
+}
+
+/* move submenu arrow away from from the label */
+.sidenav-retracted.p-tieredmenu ul.p-submenu-list .p-menuitem>a .p-submenu-icon {
+    margin-left: 5px
+}
+
+/* submenu entry style */
+.sidenav-retracted.p-tieredmenu ul.p-submenu-list .p-menuitem>a {
+    padding: 8px 24px;
+}
+
+
+/* submenu text overflow */
+.sidenav-retracted.p-tieredmenu ul.p-submenu-list .p-menuitem .p-menuitem-text {
+    text-wrap: nowrap;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
+/* override focus effect and show it only when using the keyboard */
+.sidenav-retracted.p-tieredmenu .p-menuitem>a:focus {
+    box-shadow: none;
+}
+
+.sidenav-retracted.p-tieredmenu .p-menuitem>a:focus-visible {
+    box-shadow: inset 0 0 0 0.2rem #fec7ce;
+}
+
+/* move the submenu icon on the right side */
+.sidenav-expanded.p-panelmenu .p-panelmenu-icon.pi.pi-fw.pi-angle-down,
+.sidenav-expanded.p-panelmenu .p-panelmenu-icon.pi.pi-fw.pi-angle-right,
+.sidenav-expanded.p-panelmenu .p-panelmenu-icon.pi.pi-chevron-down,
+.sidenav-expanded.p-panelmenu .p-panelmenu-icon.pi.pi-chevron-right {
+    order: 3;
+    margin-left: auto;
+}

@@ -1,0 +1,29 @@
+FROM 925741509387.dkr.ecr.us-west-2.amazonaws.com/dca-node-kubernetes:release-7.0.1
+#FROM node:20.14.0
+
+ARG _ARTIFACTORY_NPM_TOKEN
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+USER root
+# Create base directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package.json yarn.lock .npmrc /usr/src/app/
+COPY ./packages/vasa-poc/package.json /usr/src/app//packages/pge-design-system/
+
+
+RUN npm config set --global //jfrog.io.pge.com/artifactory/api/npm/arad-npm-combined/:_authToken $_ARTIFACTORY_NPM_TOKEN
+RUN yarn config set "strict-ssl" false
+# RUN npm config set cafile /etc/ssl/certs/ca-certificates.crt
+RUN yarn install
+
+COPY . /usr/src/app
+
+USER node
+EXPOSE 3000
+
+CMD ["yarn", "pds"]

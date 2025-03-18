@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Resources:
+  BehaveTestRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Description: !Sub 'IAM Role (Kube2IAM) of pge ds api for eks {env} environment' 
+      RoleName: !Sub pge-fe-mono-{env}-role
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::925741509387:policy/ARAD-key-policy
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::925741509387:role/EKS-green-{cluster_env}-Node-Role"
+              Service:
+                - ec2.amazonaws.com
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::925741509387:role/EKS-blue-{cluster_env}-Node-Role"
+              Service:
+                - ec2.amazonaws.com
+      Policies:
+        - PolicyName: ecr-policy 
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: "Allow"
+              Action: 
+                - ecr:* 
+              Resource: "*"
+        - PolicyName: s3-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: "Allow"
+              Action:
+                - s3:ListBucket
+              Resource: "*"
+            - Effect: "Allow"
+              Action:
+              - s3:Get*
+              - s3:List*
+              Resource: "*"
+            - Sid: s3ObjectWriteActions
+              Effect: Allow
+              Action:
+                - s3:PutObject
+                - s3:PutObjectAcl
+                - s3:PutObjectTagging
+                - s3:DeleteObject
+              Resource:
+                - arn:aws:s3:::foundry-behave-test-s3-*
+                - arn:aws:s3:::foundry-behave-test-s3-dev/*
+                - arn:aws:s3:::foundry-behave-test-s3-prod/*
+
+
+  

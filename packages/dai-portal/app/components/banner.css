@@ -1,0 +1,51 @@
+@import "https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap";
+
+svg {
+    width: 100%;
+    height: auto
+}
+
+body {
+    font-family: Outfit, helvetica, arial, sans-serif;
+}
+
+.image-container {
+    background: url("../../public/banner_darkGradient.png");
+    width: 98vw;
+    height: 40vh;
+    background-repeat: no-repeat;
+
+}
+
+@media (min-width: 1200px) {
+    .main {
+        padding: 16px;
+        margin-top: -90px
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .main {
+        padding: 2%;
+    }
+}
+
+.overlay-text {
+
+    position: absolute;
+    /* Position text on top of the image */
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    /* Center text within container */
+
+    color: white;
+    /* Adjust text color for visibility against the background */
+
+    font-size: 24px;
+    /* Adjust text size as needed */
+
+}
