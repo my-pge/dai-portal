@@ -1,0 +1,17 @@
+services:
+  pds:
+    build:
+      context: ./
+      dockerfile: Dockerfile.pds
+    ports:
+      - 3001:3001
+  vasa:
+    build:
+      context: ./
+      dockerfile: Dockerfile.vasa
+    ports:
+      - 3000:3000
+  # api:
+  #   image: api:latest
+  #   ports:
+  #     - 5433:5432

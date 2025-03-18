@@ -1,0 +1,21 @@
+{
+    "name": "@pge-fe-monorepo/root",
+    "version": "1.0.0",
+    "private": true,
+    "workspaces": [
+        "packages/*",
+        "apps/*",
+        "services/*"
+    ],
+    "scripts": {
+        "pds": "yarn workspace @pge-fe-monorepo/pge-design-system run storybook",
+        "vasa": "yarn workspace @pge-fe-monorepo/vasa-poc start",
+        "aps-portal": "yarn workspace @pge-fe-monorepo/aps-portal start",
+        "dai-portal": "yarn workspace @pge-fe-monorepo/dai-portal dev",
+        "build:pds": "yarn workspace  @pge-fe-monorepo/pge-design-system build",
+        "build:vasa": "yarn workspace @pge-fe-monorepo/vasa-poc build",
+        "build:aps-portal": "yarn workspace @pge-fe-monorepo/aps-portal build",
+        "build:dai-portal": "yarn workspace @pge-fe-monorepo/dai-portal build",
+        "cy:open": "cypress open"
+    }
+}
