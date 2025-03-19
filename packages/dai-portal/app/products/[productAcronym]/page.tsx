@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import Layout from '@/app/components/Layout';
 import { BreadCrumb } from 'primereact/breadcrumb';
@@ -13,7 +14,7 @@ import { useParams } from 'next/navigation';
 
 export default function ProductPage() {
   const params = useParams();
-  const acronym = params.acronym as string;
+  const acronym = params.productAcronym as string;
   const product = getProductByAcronym(acronym);
 
   if (!product) {

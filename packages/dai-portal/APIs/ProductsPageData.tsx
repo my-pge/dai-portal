@@ -97,7 +97,7 @@ export const getProductsData = (): Product[] => {
         }
       ],
       featuredVideo: {
-        src: "../2024_Heart_of_the_Customer_Award.mp4",
+        src: "../2024 Heart of the Customer Award.mp4",
         poster: "../prd_main_movie_CustOutageJourney.png",
         description: "2024 Heart of the Customer Award."
       },
