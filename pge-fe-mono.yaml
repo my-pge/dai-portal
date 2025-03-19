@@ -1,0 +1,150 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-mono-{env}-deployment
+  namespace: aps-ds-{env}
+  labels:
+    app: fe-mono-{env}-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fe-mono-{env}-deployment
+  template:
+    metadata:
+      labels:
+        app: fe-mono-{env}-deployment
+      annotations:
+        iam.amazonaws.com/role: "arn:aws:iam::925741509387:role/pge-fe-mono-{env}-role"
+    spec:
+      containers:
+      - name: fe-mono-{env}
+        image: 925741509387.dkr.ecr.us-west-2.amazonaws.com/pge-fe-mono:{version}
+        ports:
+        - name: fe-mono-{env}
+          containerPort: 3000
+      nodeSelector:
+        nodegroup-type: mem-bound
+      serviceAccountName: aps-ds-{env}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-portal-{env}-deployment
+  namespace: aps-ds-{env}
+  labels:
+    app: fe-portal-{env}-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fe-portal-{env}-deployment
+  template:
+    metadata:
+      labels:
+        app: fe-portal-{env}-deployment
+      annotations:
+        iam.amazonaws.com/role: "arn:aws:iam::925741509387:role/pge-fe-mono-{env}-role"
+    spec:
+      containers:
+      - name: fe-portal-{env}
+        image: 925741509387.dkr.ecr.us-west-2.amazonaws.com/pge-fe-portal:{version}
+        ports:
+        - name: fe-portal-{env}
+          containerPort: 3030
+      nodeSelector:
+        nodegroup-type: mem-bound
+      serviceAccountName: aps-ds-{env}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fe-mono-{env}
+  namespace: aps-ds-{env}
+  labels:
+    app: fe-mono-{env}
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      # port: is the abstracted Service port
+      # which can be any port other pods use to access the Service
+      port: 443
+      # targetPort: is the port the container accepts traffic on
+      targetPort: 3000
+  selector:
+    app: fe-mono-{env}-deployment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fe-portal-{env}
+  namespace: aps-ds-{env}
+  labels:
+    app: fe-portal-{env}
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      # port: is the abstracted Service port
+      # which can be any port other pods use to access the Service
+      port: 443
+      # targetPort: is the port the container accepts traffic on
+      targetPort: 3030
+  selector:
+    app: fe-portal-{env}-deployment
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fe-mono-{env}
+  namespace: aps-ds-{env}
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/group.name: {group_name}  # deploy in pilot cluster use "arad", nonprod "aradnonprod" and prod use "aradprod" groupname
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/subnets: {subnets}
+    alb.ingress.kubernetes.io/security-groups: {security_group}
+    alb.ingress.kubernetes.io/certificate-arn: {cert_arn}
+spec:
+  rules:
+    - host: {domain_name}
+      http:
+        paths:
+          - backend:
+              service:
+                name: fe-mono-{env}
+                port:
+                  number: 443
+            path: /
+            pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fe-portal-{env}
+  namespace: aps-ds-{env}
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/group.name: {group_name}  # deploy in pilot cluster use "arad", nonprod "aradnonprod" and prod use "aradprod" groupname
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/subnets: {subnets}
+    alb.ingress.kubernetes.io/security-groups: {security_group}
+    alb.ingress.kubernetes.io/certificate-arn: {cert_arn_portal}
+spec:
+  rules:
+    - host: {domain_name_portal}
+      http:
+        paths:
+          - backend:
+              service:
+                name: fe-portal-{env}
+                port:
+                  number: 443
+            path: /
+            pathType: Prefix
