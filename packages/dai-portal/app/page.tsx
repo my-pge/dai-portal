@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import { Navbar } from './components/Navbar';
 import { Banner } from './components/Banner';
 import { SlideShow } from './components/SlideShow';
-import { Annoucements } from './components/Annoucements';
+import { Announcements } from './components/Announcements';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -147,7 +147,7 @@ const Page = () => {
             </span>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr' }}>
               <SlideShow />
-              <div className='px-6'><Annoucements /></div>
+              <div className='px-6'><Announcements /></div>
             </div>
           </section>
 

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Header } from '../Header/Header';
-import './page.scss';
+import './.scss';
 
 type User = {
   name: string;
 };
 
-export const Page: React.FC = () => {
+export const : React.FC = () => {
   const [user, setUser] = React.useState<User>();
 
   return (

@@ -4,14 +4,14 @@ import { DataView } from 'primereact/dataview';
 import { Rating } from 'primereact/rating';
 import { Tag } from 'primereact/tag';
 import { classNames } from 'primereact/utils';
-import { AnnoucementService } from '../../APIs/AnnoucementService';
+import { AnnouncementService } from '../../APIs/AnnouncementService';
 import { PGESquareCard } from '@pge-fe-monorepo/pge-design-system/src/lib';
 
-export function Annoucements() {
-    const [products, setProducts] = useState([]);
+export function Announcements() {
+    const [products, setProducts] = useState<{ id: string; code: string; name: string; description: string; image: string; date: number; month: string; quantity: number; inventoryStatus: string; rating: number; }[]>([]);
 
     useEffect(() => {
-        AnnoucementService.getProductsSmall().then((data) => setProducts(data?.slice(0, 5)));
+        AnnouncementService.getProductsSmall().then((data) => setProducts(data?.slice(0, 5)));
     }, []);
 
     const getSeverity = (item: { inventoryStatus: string; }) => {
@@ -64,7 +64,7 @@ export function Annoucements() {
         <div className="card bg-white pb-4" style={{ width: '750px' }}>
             <span className='flex flex-col'>
                 <span className='justify-items-center'><img src="../home_src_announcements.png" width="50px" height="40px" /></span>
-                <span className='justify-items-center p-4 '><h1 className='px-4 font-medium text-xl pl-2 font-semibold'>Annoucements</h1></span>
+                <span className='justify-items-center p-4 '><h1 className='px-4 font-medium text-xl pl-2 font-semibold'>Announcements</h1></span>
             </span>
             <DataView value={products} listTemplate={listTemplate} />
         </div>

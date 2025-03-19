@@ -43,7 +43,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "APIs/SummariesAndAnnouncements.jsx"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,4 +1,4 @@
-export const AnnoucementService = {
+export const AnnouncementService = {
     getProductsData() {
         return [
             {
